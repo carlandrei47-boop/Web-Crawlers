@@ -47,7 +47,7 @@ Select the Crawlers icon in the browser toolbar to open its controls:
 - Choose reduced effects for slower devices.
 - Select **Reset page effects** to undo visual changes on the current page.
 
-Click the web page to trigger the active creature's special move. Choose **Stick gang vs. endless waves** for battles against waves and bosses, or **Terrarian (builds platforms)** to build defenses. Settings are saved. These effects change the page visually; refreshing the page also clears them.
+Click the web page to trigger the active creature's special move. Choose **Stick gang vs. endless waves** for battles against waves and bosses, or **Rift Mason (builds platforms)** to build defenses. Settings are saved. These effects change the page visually; refreshing the page also clears them.
 
 ## Troubleshooting
 
