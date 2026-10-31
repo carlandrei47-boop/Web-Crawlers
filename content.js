@@ -426,6 +426,7 @@ function spider(arenaMode, arenaColor, arenaLock = false) {
 
 // ---------- EMBER ----------
 function ember(arenaMode = false) {
+  const flame = '#7161e8', core = '#a4f2e4';
   const w = walker(), fb = []; let cd = 30, arenaTarget = { x: W / 2, y: H / 2 }, arenaFloor = null;
   const throwF = (dir, d, aim) => fb.push({
     x: w.x + dir * 12, y: w.y - 22,
@@ -433,7 +434,7 @@ function ember(arenaMode = false) {
     vy: aim ? Math.sin(aim) * 7 : -1 - d, b: 0, age: 0
   });
   return {
-    col: C.o, needsPlats: true, eat: 22, pts: () => [{ x: w.x, y: w.y - 14 }],
+    col: flame, needsPlats: true, eat: 22, pts: () => [{ x: w.x, y: w.y - 14 }],
     arenaPosition() { return { x: w.x, y: w.y - 14 }; },
     setArenaFloor(floor) { arenaFloor = floor; },
     setArenaTarget(px, py) { arenaTarget = { x: px, y: py }; },
@@ -444,7 +445,7 @@ function ember(arenaMode = false) {
     },
     arenaShots() { return fb; },
     removeArenaShot(shot) { const i = fb.indexOf(shot); if (i >= 0) fb.splice(i, 1); },
-    click(px) { const dir = px >= w.x ? 1 : -1; w.face = dir; for (let i = 0; i < 3; i++) setTimeout(() => throwF(dir, i * 1.2), i * 90); ring(w.x, w.y - 20, 60, C.o);     },
+    click(px) { const dir = px >= w.x ? 1 : -1; w.face = dir; for (let i = 0; i < 3; i++) setTimeout(() => throwF(dir, i * 1.2), i * 90); ring(w.x, w.y - 20, 60, flame);     },
     update() {
       phys(w, 4.2, 12, false, arenaMode && arenaFloor ? plats.concat(arenaFloor) : undefined, arenaMode ? arenaTarget : undefined);
       if (w.hit > 6) { const s = grab(w.x, w.y + 4); if (s) { wipe(s, 'coin', { g: .45, vx: (R() - .5) * 3, vy: -6, col: C.y }); ring(w.x, w.y, 45, C.y); w.vy = -7; w.ground = false; } }
@@ -454,20 +455,20 @@ function ember(arenaMode = false) {
         const f = fb[i]; f.age++; f.vy += arenaMode ? .08 : .5; const py = f.y; f.x += f.vx; f.y += f.vy;
         if (f.vy > 0) { let hitP = f.y >= H ? { t: H } : null; for (const p of plats) if (f.x > p.l && f.x < p.r && py <= p.t + 1 && f.y >= p.t) { hitP = p; break; } if (hitP) { f.y = hitP.t; f.vy = -6.5; f.b++; } }
         let dead = f.age > 220 || f.b > 5 || f.x < -20 || f.x > W + 20;
-        if (!dead && f.age % 2 == 0) { const s = grab(f.x, f.y); if (s) { wipe(s, 'coin', { g: .45, vx: f.vx * .4, vy: -5, col: C.y }); burst(f.x, f.y, 14, C.o); dead = true; } }
+        if (!dead && f.age % 2 == 0) { const s = grab(f.x, f.y); if (s) { wipe(s, 'coin', { g: .45, vx: f.vx * .4, vy: -5, col: C.y }); burst(f.x, f.y, 14, flame); dead = true; } }
         if (dead) fb.splice(i, 1);
       }
     },
     draw(now) {
       x.save(); x.translate(w.x, w.y); x.scale(w.face, 1);
       const sw = w.ground ? Math.sin(w.x * .3) * 5 * Math.min(1, Math.abs(w.vx) / 2) : 6;
-      x.fillStyle = '#3a2a1a'; x.fillRect(-6 + sw, -5, 6, 5); x.fillRect(1 - sw, -5, 6, 5);
-      x.fillStyle = '#2b4cff'; x.fillRect(-6, -14, 13, 10); x.fillStyle = '#ff7a1a'; x.fillRect(-7, -24, 15, 11);
-      x.fillStyle = '#ffcf9f'; x.beginPath(); x.arc(1, -30, 7, 0, TAU); x.fill(); x.fillRect(7, -24, 6 + (cd > 30 ? 4 : 0), 4);
-      x.fillStyle = '#ff3d00'; x.beginPath(); x.moveTo(-7, -32); x.quadraticCurveTo(-2, -48, 4, -42); x.quadraticCurveTo(7, -46, 9, -32); x.closePath(); x.fill();
-      x.fillStyle = C.y; x.beginPath(); x.moveTo(-2, -33); x.quadraticCurveTo(1, -42, 4, -33); x.fill();
-      x.fillStyle = '#222'; x.fillRect(4, -32, 2, 3); x.restore();
-      for (const f of fb) { x.save(); x.shadowColor = C.o; x.shadowBlur = 12; x.fillStyle = C.o; x.beginPath(); x.arc(f.x, f.y, 6, 0, TAU); x.fill(); x.fillStyle = C.y; x.beginPath(); x.arc(f.x, f.y, 3, 0, TAU); x.fill(); x.restore(); }
+      x.fillStyle = '#29364b'; x.fillRect(-6 + sw, -5, 6, 5); x.fillRect(1 - sw, -5, 6, 5);
+      x.fillStyle = '#285a68'; x.fillRect(-6, -14, 13, 10); x.fillStyle = '#3e4779'; x.fillRect(-7, -24, 15, 11);
+      x.fillStyle = '#b7d5d4'; x.beginPath(); x.arc(1, -30, 7, 0, TAU); x.fill(); x.fillStyle = '#397080'; x.fillRect(7, -24, 6 + (cd > 30 ? 4 : 0), 4);
+      x.fillStyle = flame; x.beginPath(); x.moveTo(-7, -32); x.quadraticCurveTo(-2, -48, 4, -42); x.quadraticCurveTo(7, -46, 9, -32); x.closePath(); x.fill();
+      x.fillStyle = core; x.beginPath(); x.moveTo(-2, -33); x.quadraticCurveTo(1, -42, 4, -33); x.fill();
+      x.fillStyle = '#263342'; x.fillRect(4, -32, 2, 3); x.restore();
+      for (const f of fb) { x.save(); x.shadowColor = flame; x.shadowBlur = 12; x.fillStyle = flame; x.beginPath(); x.arc(f.x, f.y, 6, 0, TAU); x.fill(); x.fillStyle = core; x.beginPath(); x.arc(f.x, f.y, 3, 0, TAU); x.fill(); x.restore(); }
     }
   };
 }
@@ -912,7 +913,7 @@ function arena() {
     { name: 'Wild Things', kinds: ['spider', 'mite', 'centipede', 'wisp'] },
     { name: 'Bolt Bots', kinds: ['buzz', 'crabbot', 'spinroll', 'buzz'] },
     { name: 'Rival Crew', kinds: ['chomper', 'runner', 'ember', 'builder'] },
-    { name: 'Shroom Realm', kinds: ['capwalker', 'shellhopper', 'mallet', 'capwalker'] },
+    { name: 'Spore Hollow', kinds: ['capwalker', 'shellhopper', 'mallet', 'capwalker'] },
     { name: 'Cavern Critters', kinds: ['slime', 'eye', 'bat', 'slime'] }
   ];
   const enemyInfo = {
@@ -921,9 +922,9 @@ function arena() {
     spider: { name: 'Web Stalker', color: '#61e6d5', hp: 7, radius: 20 },
     centipede: { name: 'Rust Centipede', color: '#ff8059', hp: 7, radius: 18 },
     runner: { name: 'Speedster', color: '#18b9c9', hp: 7, radius: 15 },
-    builder: { name: 'Terrarian', color: '#ffb84d', hp: 8, radius: 16 },
+    builder: { name: 'Rift Mason', color: '#6ec7c0', hp: 8, radius: 16 },
     chomper: { name: 'Chomper', color: '#ffe135', hp: 8, radius: 17 },
-    ember: { name: 'Fire Hero', color: '#ff7a1a', hp: 7, radius: 15 },
+    ember: { name: 'Cinder Scout', color: '#7161e8', hp: 7, radius: 15 },
     fuse: { name: 'Fuse Pixel', color: '#6fd36f', hp: 5, radius: 15 },
     bonearcher: { name: 'Bone Archer', color: '#cfd8dc', hp: 5, radius: 14 },
     rotwalker: { name: 'Rot Walker', color: '#5fb3a1', hp: 7, radius: 15 },
@@ -981,9 +982,9 @@ function arena() {
   });
   const BOSSES = {
     wyrm: { name: 'Void Wyrm', color: '#b66bff' }, mech: { name: 'Gearhead Mech', color: '#ffb33b' }, phantom: { name: 'Grand Phantom', color: '#ff6b9a' },
-    shell: { name: 'Shell Tyrant', color: '#ff8a3d' }, eye: { name: 'Overseer Eye', color: '#ff4d6d' }
+    shell: { name: 'Shardback Colossus', color: '#62d8c5' }, eye: { name: 'Overseer Eye', color: '#ff4d6d' }
   };
-  const themeFor = () => ({ 'Block Raiders': 'wyrm', 'Bolt Bots': 'mech', 'Phantom Maze': 'phantom', 'Shroom Realm': 'shell', 'Cavern Critters': 'eye' })[waveSets[(round - 1) % waveSets.length].name];
+  const themeFor = () => ({ 'Block Raiders': 'wyrm', 'Bolt Bots': 'mech', 'Phantom Maze': 'phantom', 'Spore Hollow': 'shell', 'Cavern Critters': 'eye' })[waveSets[(round - 1) % waveSets.length].name];
   const makeBoss = () => {
     const th = themeFor(); if (!th) return makeArachne();
     const info = BOSSES[th];
@@ -1225,15 +1226,23 @@ function arena() {
     } else if (th === 'shell') {
       x.save(); x.scale(f, 1);
       const sq = Math.min(.12, Math.abs(b.vy || 0) * .012); x.scale(1 - sq, 1 + sq);
-      x.fillStyle = '#c9702a'; x.fillRect(-30, r - 14, 20, 16); x.fillRect(8, r - 14, 20, 16);
-      x.fillStyle = '#ffd9a0'; x.beginPath(); x.ellipse(0, 6, 34, 30, 0, 0, TAU); x.fill();
-      x.fillStyle = '#ff8a3d'; x.beginPath(); x.ellipse(-12, -4, 36, 32, -.2, 0, TAU); x.fill(); x.strokeStyle = '#8a3d12'; x.lineWidth = 2.5; x.stroke();
-      x.beginPath(); line(-12, -34, -12, 26); line(-44, -4, 20, -4); x.stroke();
-      x.fillStyle = '#f2f2f2'; for (const [sx, sy] of [[-30, -28], [-8, -36], [14, -26], [-42, -10]]) { x.beginPath(); x.moveTo(sx - 6, sy + 8); x.lineTo(sx, sy - 10); x.lineTo(sx + 6, sy + 8); x.closePath(); x.fill(); }
-      x.fillStyle = '#6bbf3a'; x.fillRect(18, -22, 26, 24); x.fillStyle = '#ffd9a0'; x.fillRect(34, -6, 16, 12);
-      x.fillStyle = '#fff'; x.fillRect(26, -16, 8, 8); x.fillStyle = '#c0261a'; x.fillRect(30, -14, 4, 5); x.strokeStyle = '#2a1a0a'; x.lineWidth = 3; x.beginPath(); line(24, -20, 36, -16); x.stroke();
-      x.fillStyle = '#f2f2f2'; x.beginPath(); x.moveTo(20, -22); x.lineTo(22, -36); x.lineTo(28, -22); x.closePath(); x.fill();
-      if (b.cd < 24) { x.save(); x.shadowColor = '#ff8a3d'; x.shadowBlur = 16; x.fillStyle = '#ffcf5a'; x.beginPath(); x.arc(52, 0, 8, 0, TAU); x.fill(); x.restore(); }
+      x.strokeStyle = '#26344f'; x.lineWidth = 6; x.lineCap = 'round';
+      for (const side of [-1, 1]) for (let i = 0; i < 3; i++) {
+        const legX = side * (13 + i * 5), legY = 3 + i * 8;
+        x.beginPath(); x.moveTo(side * 9, legY - 5); x.lineTo(legX, legY); x.lineTo(legX + side * 8, legY + 9); x.stroke();
+      }
+      x.fillStyle = '#29364f'; x.beginPath(); x.ellipse(0, 8, 34, 23, 0, 0, TAU); x.fill();
+      x.fillStyle = '#433f78'; x.strokeStyle = '#252541'; x.lineWidth = 3;
+      x.beginPath(); x.moveTo(-35, 1); x.lineTo(-29, -21); x.lineTo(-12, -35); x.lineTo(12, -33); x.lineTo(31, -17); x.lineTo(35, 5); x.lineTo(20, 18); x.lineTo(-21, 17); x.closePath(); x.fill(); x.stroke();
+      x.strokeStyle = '#8c83c7'; x.lineWidth = 2;
+      x.beginPath(); line(-20, -18, -8, 11); line(-3, -30, 0, 15); line(15, -25, 9, 12); x.stroke();
+      x.fillStyle = '#8ee9dc'; x.shadowColor = '#62d8c5'; x.shadowBlur = 14;
+      for (const [gx, gy, size] of [[25, -5, 4], [29, 5, 3], [20, 12, 2.5]]) {
+        x.beginPath(); x.arc(gx, gy, size, 0, TAU); x.fill();
+      }
+      x.shadowBlur = 0;
+      x.fillStyle = '#b7f4e8'; x.beginPath(); x.moveTo(-18, -28); x.lineTo(-24, -42); x.lineTo(-9, -34); x.closePath(); x.fill();
+      if (b.cd < 24) { x.save(); x.shadowColor = '#62d8c5'; x.shadowBlur = 16; x.fillStyle = '#b7f4e8'; x.beginPath(); x.arc(48, 0, 8, 0, TAU); x.fill(); x.restore(); }
       x.restore();
     } else if (th === 'eye') {
       const rage = b.hp <= b.maxHp / 2, lx = (b.lookx || 0) * r * .32, ly = (b.looky || 0) * r * .32;
@@ -1620,7 +1629,7 @@ function arena() {
       }
       activateBoss();
       if (phase === 'wave' && fr % 840 === 0 && enemies.some(e => (e.kind === 'ghost' || e.theme === 'phantom') && e.hp > 0)) {
-        powerUntil = fr + 330; floaters.push({ x: W / 2, y: H * .35, t: 'POWER PELLET!', c: '#7fb2ff', l: 1.6, big: true }); ring(W / 2, H / 2, 160, '#7fb2ff');
+        powerUntil = fr + 330; floaters.push({ x: W / 2, y: H * .35, t: 'PRISM PULSE!', c: '#7fb2ff', l: 1.6, big: true }); ring(W / 2, H / 2, 160, '#7fb2ff');
       }
       if (phase === 'intermission' && fr % 24 === 0) {
         const hero = heroes[R() * heroes.length | 0], p = pos(hero);
@@ -1908,7 +1917,7 @@ function arena() {
       }
       if (fr < powerUntil) {
         x.save(); x.textAlign = 'center'; x.font = 'bold 13px system-ui,sans-serif'; x.fillStyle = '#7fb2ff'; x.shadowColor = '#2a3cff'; x.shadowBlur = 10;
-        x.fillText('POWER PELLET - catch the Phantoms!', W / 2, 42); x.restore();
+        x.fillText('PRISM PULSE - repel the Phantoms!', W / 2, 42); x.restore();
       }
     }
   };
