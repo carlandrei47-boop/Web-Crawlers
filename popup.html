@@ -1,0 +1,16 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>
+:root{color-scheme:light dark}
+body{margin:0;padding:14px 16px;min-width:220px;font:14px system-ui,sans-serif}
+label{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:12px}
+input[type=checkbox]{width:22px;height:22px}
+select,button{font:inherit;padding:4px 8px}
+small{display:block;margin-top:10px;opacity:.6}
+</style></head><body>
+<label><span>🕷️ Crawler</span><input type="checkbox" id="on"></label>
+<label><span>Creature</span><select id="sp"><option value="random">Random</option><option value="centipede">Centipede (venom)</option><option value="spider">Spider (webs)</option><option value="ember">Fire hero</option><option value="zip">Speedster</option><option value="chomp">Chomper</option><option value="gang">Stick gang (all 5)</option><option value="orange">Orange stick</option><option value="red">Red stick</option><option value="green">Green stick</option><option value="yellow">Yellow stick</option><option value="blue">Blue stick</option><option value="ship">Starship</option><option value="tank">Pixel tank</option><option value="miner">Terrarian (builds platforms)</option><option value="arena">Stick gang vs. endless waves</option></select></label>
+<label><span>Picture power</span><select id="power"><option value="random">Random</option><option value="rainbow">Rainbow</option><option value="bounce">Bounce</option><option value="neon">Neon</option><option value="matrix">Matrix</option><option value="glitch">Glitch</option><option value="tilt">Tilt</option><option value="flip">Flip</option></select></label>
+<button id="fix">Fix the page</button>
+<small>Click: your creature's special move. In the arena, five stick fighters battle rotating waves of monsters and original rivals, with a fused spider-centipede boss after each wave.</small><small>Changes are visual only and reset when you refresh.</small>
+<small>In the arena only, the Terrarian can use invisible platforms from page text and build walls from mined blocks to block incoming projectiles. The standalone Terrarian's behavior is unchanged.</small>
+<script src="popup.js"></script></body></html>
