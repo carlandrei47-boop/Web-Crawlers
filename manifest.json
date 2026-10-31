@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "Crawlers",
+  "version": "2.7",
+  "description": "A creature that crawls over every page and messes with the words. Toggle it from the toolbar.",
+  "permissions": ["storage"],
+  "content_scripts": [{ "matches": ["<all_urls>"], "js": ["content.js"], "run_at": "document_idle" }],
+  "action": { "default_popup": "popup.html", "default_title": "Crawlers", "default_icon": { "48": "icon48.png" } },
+  "icons": { "48": "icon48.png", "128": "icon128.png" },
+  "browser_specific_settings": { "gecko": { "id": "crawlers@local.example", "data_collection_permissions": { "required": ["none"] } } }
+}
