@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>
+:root{color-scheme:light dark}
+*{box-sizing:border-box}
+body{margin:0;padding:16px;min-width:290px;max-width:360px;font:15px/1.4 system-ui,sans-serif}
+h1{font-size:18px;margin:0 0 14px}
+label{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 13px}
+label span{font-weight:600}
+input[type=checkbox]{width:25px;height:25px;accent-color:#35b86b}
+select,button{font:inherit;min-height:42px;border-radius:10px;padding:8px 10px}
+select{width:58%;max-width:210px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+button{cursor:pointer}
+#settings{width:100%;margin-top:8px}
+small{display:block;margin-top:10px;opacity:.76;line-height:1.45}
+#status{min-height:1.4em}
+</style>
+</head>
+<body>
+<h1>🕷️ Crawlers</h1>
+<label><span>Creature active</span><input type="checkbox" id="on"></label>
+<label><span>Creature</span><select id="sp"><option value="random">Random</option><option value="centipede">Centipede (venom)</option><option value="spider">Spider (webs)</option><option value="ember">Fire hero</option><option value="zip">Speedster</option><option value="chomp">Chomper</option><option value="gang">Stick gang (all 5)</option><option value="orange">Orange stick</option><option value="red">Red stick</option><option value="green">Green stick</option><option value="yellow">Yellow stick</option><option value="blue">Blue stick</option><option value="ship">Starship</option><option value="tank">Pixel tank</option><option value="miner">Terrarian (builds platforms)</option><option value="arena">Stick gang vs. endless waves</option></select></label>
+<label><span>Picture power</span><select id="power"><option value="random">Random</option><option value="rainbow">Rainbow</option><option value="bounce">Bounce</option><option value="neon">Neon</option><option value="matrix">Matrix</option><option value="glitch">Glitch</option><option value="tilt">Tilt</option><option value="flip">Flip</option></select></label>
+<label><span>Pixel outline</span><input type="checkbox" id="outline" checked></label>
+<label><span>Effects</span><select id="effects"><option value="full">Full</option><option value="reduced">Reduced (better battery)</option></select></label>
+<div class="actions"><button id="pause" type="button">Pause</button><button id="fix" type="button">Reset page effects</button></div>
+<button id="settings" type="button">Open full settings</button>
+<small id="status" role="status" aria-live="polite"></small>
+<small>Tap or click the page to trigger your creature's special move. Settings are saved and sync across supported browsers.</small>
+<script src="popup.js"></script>
+</body>
+</html>

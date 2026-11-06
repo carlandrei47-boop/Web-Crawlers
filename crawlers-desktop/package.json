@@ -1,0 +1,10 @@
+{
+  "name": "crawlers-desktop",
+  "version": "1.0.0",
+  "description": "Crawlers for your whole screen: creatures that roam over every window as a see-through overlay. Visual only.",
+  "main": "main.js",
+  "scripts": { "start": "electron ." },
+  "dependencies": { "tesseract.js": "^5.1.1" },
+  "devDependencies": { "electron": "^31.0.0" },
+  "license": "MIT"
+}
